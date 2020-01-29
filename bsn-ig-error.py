@@ -117,7 +117,11 @@ def ig_check(ig_name):
         for i in sorted_ig:
             path = '/api/v1/data/controller/applications/bcf/info/fabric/interface-group/detail[name="%s"]' % i
             members = requests.get('https://' + base_url + path, headers=headers, verify=False).json()
-            ig_lookup(i, members)
+            if 'interface' in members[0]:
+                ig_lookup(i, members)
+            else:
+                print("%s:" % i)
+                print("no configured members")
     else:
         path = '/api/v1/data/controller/applications/bcf/info/fabric/interface-group/detail[name="%s"]' % ig_name
         members = requests.get('https://' + base_url + path, headers=headers, verify=False).json()
@@ -126,6 +130,11 @@ def ig_check(ig_name):
             print("Use one of these interface groups:")
             for i in sorted_ig:
                 print(i)
+            kill_session()
+            sys.exit(1)
+        elif 'interface' not in members[0]:
+            print("%s:" % ig_name)
+            print("no configured members")
             kill_session()
             sys.exit(1)
         else:
