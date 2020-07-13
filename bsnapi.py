@@ -4,9 +4,9 @@ import re
 import sys
 import json
 import requests
-from pygments import highlight
-from pygments.lexers import JsonLexer
-from pygments.formatters import TerminalFormatter
+#from pygments import highlight
+#from pygments.lexers import JsonLexer
+#from pygments.formatters import TerminalFormatter
 requests.packages.urllib3.disable_warnings()
 username = os.getenv('BSNUSER')
 password = os.environ.get('BSNPASS')
@@ -45,6 +45,8 @@ def controller_check():
         base_url = "dc01-bcf-ctrl:8443"
     elif sys.argv[1] == 'dc02':
         base_url = "dc02-bcf-ctrl:8443"
+    elif sys.argv[1] == 'bmf':
+        base_url = "dc01-bmf-ctrl:8443"
     else:
         error_message = "ERROR: incorrect controller"
         display_error(error_message)
@@ -62,7 +64,7 @@ def api_path_check():
 
 def check_method():
     global method
-    method_check = re.compile("get|put|post", re.IGNORECASE)
+    method_check = re.compile("get|patch|delete|put|post", re.IGNORECASE)
     if method_check.match(sys.argv[3]):
         method = str.lower(sys.argv[3])
     else:
@@ -129,11 +131,15 @@ if __name__ == '__main__':
     else:
         r = requests.get('https://' + base_url + path, headers=headers, verify=False)
     if r.content:
-        print(highlight(r.text, JsonLexer(), TerminalFormatter()))
+        parsed = json.loads(r.text)
+        #print(highlight(r.text, JsonLexer(), TerminalFormatter()))
+        print(json.dumps(parsed, indent=2, sort_keys=True))
     else:
         print(r.status_code)
         if r.status_code == 204:
             print("Success")
         r = requests.get('https://' + base_url + path, headers=headers, verify=False)
-        print(highlight(r.text, JsonLexer(), TerminalFormatter()))
+        parsed = json.loads(r.text)
+        #print(highlight(r.text, JsonLexer(), TerminalFormatter()))
+        print(json.dumps(parsed, indent=2, sort_keys=True))
     kill_session()

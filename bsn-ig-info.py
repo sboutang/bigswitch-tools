@@ -85,7 +85,10 @@ def ig_state(ig_name):
             for x in data:
                 print(x['name'])
             for y in x['interface']:
-                print("    mode: %s leaf-group: %s switch: %s interface: %s phy-state: %s op-state: %s" % (y['mode'], y['leaf-group'], y['member-info']['switch-name'], y['member-info']['interface-name'], y['phy-state'], y['op-state']))
+                if y['interface-down-reason'] != "None":
+                    print("    mode: %s leaf-group: %s switch: %s interface: %s phy-state: %s op-state: %s reason: %s" % (y['mode'], y['leaf-group'], y['member-info']['switch-name'], y['member-info']['interface-name'], y['phy-state'], y['op-state'], y['interface-down-reason']))
+                else:
+                    print("    mode: %s leaf-group: %s switch: %s interface: %s phy-state: %s op-state: %s" % (y['mode'], y['leaf-group'], y['member-info']['switch-name'], y['member-info']['interface-name'], y['phy-state'], y['op-state']))
 
 def ig_lookup(ig_name):
     if cookie:
