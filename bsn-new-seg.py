@@ -29,11 +29,11 @@ def display_error(error_message):
 def controller_check(controller):
     global base_url
     if controller == 'lab':
-        base_url = "mn-pcclab-pnet-ctlr.tcfbank.com:8443"
+        base_url = "mn-pcclab-pnet-ctlr:8443"
     elif controller == 'dc01':
-        base_url = "dc01-bcf-ctrl.tcfbank.com:8443"
+        base_url = "dc01-bcf-ctrl:8443"
     elif controller == 'dc02':
-        base_url = "dc02-bcf-ctrl.tcfbank.com:8443"
+        base_url = "dc02-bcf-ctrl:8443"
     else:
         error_message = "ERROR: incorrect controller"
         display_error(error_message)
@@ -81,19 +81,19 @@ def base(base_url):
     seg_needed = str(input("add seg-fw L2 interface: (y/n) "))
     f5_needed = str(input("add F5 L2 interface: (y/n) "))
     ntnx_needed = str(input("add to nutanix: (y/n) "))
-    if base_url == 'mn-pcclab-pnet-ctlr.tcfbank.com:8443':
+    if base_url == 'mn-pcclab-pnet-ctlr:8443':
         corel2 = "mn-pcclab-core-sw-vpc17"
         fw1l2 = "mn-pcclab-eia-fw01-Internal-Seg-pri"
         fw2l2 = "mn-pcclab-eia-fw01-Internal-Seg-sec"
         f51l2 = "NO_LAB_F5"
         f52l2 = "NO_LAB_F5"
-    elif base_url == 'dc01-bcf-ctrl.tcfbank.com:8443':
+    elif base_url == 'dc01-bcf-ctrl:8443':
         corel2 = "dc01-7k-core-vpc70"
         fw1l2 = "dc01-intsegfw01-a-ae3"
         fw2l2 = "dc01-intsegfw01-b-ae3"
         f51l2 = "DOES_NOT_YET_EXIST"
         f52l2 = "DOES_NOT_YET_EXIST"
-    elif base_url == 'dc02-bcf-ctrl.tcfbank.com:8443':
+    elif base_url == 'dc02-bcf-ctrl:8443':
         corel2 = "dc02-n7k-vpc71"
         fw1l2 = "dc02-intsegfw01-a-ae2"
         fw2l2 = "dc02-intsegfw01-b-ae2"

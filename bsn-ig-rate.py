@@ -44,11 +44,11 @@ def display_error(error_message):
 def controller_check(controller):
     global base_url
     if controller == 'lab':
-        base_url = "mn-pcclab-pnet-ctlr.tcfbank.com:8443"
+        base_url = "mn-pcclab-pnet-ctlr:8443"
     elif controller == 'dc01':
-        base_url = "dc01-bcf-ctrl.tcfbank.com:8443"
+        base_url = "dc01-bcf-ctrl:8443"
     elif controller == 'dc02':
-        base_url = "dc02-bcf-ctrl.tcfbank.com:8443"
+        base_url = "dc02-bcf-ctrl:8443"
     else:
         error_message = "ERROR: incorrect controller"
         display_error(error_message)
