@@ -7,7 +7,7 @@ import requests
 
 requests.packages.urllib3.disable_warnings()
 username = os.getenv('BSNUSER')
-password = os.environ.get('BSNPASS')
+password = os.getenv('BSNPASS')
 p_name = os.path.basename(sys.argv[0])
 parser = argparse.ArgumentParser(description='BCF segment information')
 parser.add_argument('controller', type=str, help='lab, dc01, dc02')
@@ -25,11 +25,11 @@ def display_error(error_message):
 def controller_check(controller):
     global base_url
     if controller == 'lab':
-        base_url = "mn-pcclab-pnet-ctlr:8443"
+        base_url = "mn-pcclab-pnet-ctlr.tcfbank.com:8443"
     elif controller == 'dc01':
-        base_url = "dc01-bcf-ctrl:8443"
+        base_url = "dc01-bcf-ctrl.tcfbank.com:8443"
     elif controller == 'dc02':
-        base_url = "dc02-bcf-ctrl:8443"
+        base_url = "dc02-bcf-ctrl.tcfbank.com:8443"
     else:
         error_message = "ERROR: incorrect controller"
         display_error(error_message)
@@ -80,7 +80,7 @@ def segment_lookup(segment):
             print("no configured interface groups")
         else:
             for interface_group in r[0]['segment'][0]['interface-group-membership-rule']:
-                if interface_group['vlan'] is -1:
+                if interface_group['vlan'] == -1:
                     interface_group['vlan'] = "untagged"
                 print("  interface_group: %s vlan: %s" % (interface_group['interface-group'], interface_group['vlan']))
 

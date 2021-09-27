@@ -1,0 +1,2 @@
+#!/bin/bash
+grep ^interface_group | awk '{print "tenant "$4"\nsegment "$6"\nmember interface-group "$2" vlan "$8}'
