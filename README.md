@@ -18,7 +18,7 @@ Uses these additional python modules:
 Clone this to your machine and install modules
 
 ```
-git clone https://git.tcfbank.com/sboutang/bigswitch-tools.git
+git clone https://github.com/sboutang/bigswitch-tools.git
 
 pip3 install pygments --user
 pip3 install tabulate --user
